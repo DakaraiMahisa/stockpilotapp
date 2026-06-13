@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
@@ -6,6 +7,7 @@ const LoginPage = () => {
       <h1>Login</h1>
 
       <LoginForm />
+      <Link to="/forgot-password">Forgot Password?</Link>
     </div>
   );
 };

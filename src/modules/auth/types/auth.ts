@@ -30,3 +30,12 @@ export interface TokenResponse {
 }
 
 export type LoginResponse = ApiResponse<TokenResponse>;
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  newPassword: string;
+}
