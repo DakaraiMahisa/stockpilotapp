@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { loginSchema, type LoginFormData } from "../schemas/loginSchema";
 import { useLogin } from "../hooks/useLogin";
-
+import AuthLayout from "@/components/layout/AuthLayout";
+import AuthCard from "@/components/layout/AuthCard";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
 const LoginForm = () => {
   const loginMutation = useLogin();
   const navigate = useNavigate();
@@ -35,37 +38,66 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Tenant Code</label>
-        <input type="text" {...register("tenantCode")} />
-        {errors.tenantCode && <p>{errors.tenantCode.message}</p>}
-      </div>
+    <AuthLayout>
+      <AuthCard
+        title="Welcome Back"
+        subtitle="Sign in to continue to StockPilot"
+      >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <Input
+            label="Tenant Code"
+            placeholder="dakarai-software-solutions"
+            error={errors.tenantCode?.message}
+            {...register("tenantCode")}
+          />
 
-      <div>
-        <label>Email</label>
-        <input type="email" {...register("email")} />
-        {errors.email && <p>{errors.email.message}</p>}
-      </div>
+          <Input
+            label="Email"
+            type="email"
+            placeholder="owner@example.com"
+            error={errors.email?.message}
+            {...register("email")}
+          />
 
-      <div>
-        <label>Password</label>
-        <input type="password" {...register("password")} />
-        {errors.password && <p>{errors.password.message}</p>}
-      </div>
+          <Input
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            error={errors.password?.message}
+            {...register("password")}
+          />
 
-      {loginMutation.isError && (
-        <p>
-          {loginMutation.error instanceof Error
-            ? loginMutation.error.message
-            : "Login failed"}
-        </p>
-      )}
+          {loginMutation.isError && (
+            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
+              {loginMutation.error instanceof Error
+                ? loginMutation.error.message
+                : "Login failed"}
+            </div>
+          )}
 
-      <button type="submit" disabled={loginMutation.isPending}>
-        {loginMutation.isPending ? "Signing In..." : "Sign In"}
-      </button>
-    </form>
+          <Button
+            type="submit"
+            disabled={loginMutation.isPending}
+            className="w-full"
+          >
+            {loginMutation.isPending ? "Signing In..." : "Sign In"}
+          </Button>
+
+          <div className="flex justify-between text-sm">
+            <Link
+              to="/forgot-password"
+              className="text-blue-600 hover:underline"
+            >
+              Forgot Password?
+            </Link>
+
+            <Link to="/register" className="text-blue-600 hover:underline">
+              Create Account
+            </Link>
+          </div>
+        </form>
+      </AuthCard>
+    </AuthLayout>
   );
 };
 
