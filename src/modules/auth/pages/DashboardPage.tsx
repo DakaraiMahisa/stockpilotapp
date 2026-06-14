@@ -1,33 +1,46 @@
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "@/store/authStore";
-import { useLogout } from "@/modules/auth/hooks/useLogout";
+import AppLayout from "@/components/layout/AppLayout";
 
 const DashboardPage = () => {
-  const navigate = useNavigate();
-
-  const clearTokens = useAuthStore((state) => state.clearTokens);
-
-  const logoutMutation = useLogout();
-
-  const handleLogout = async () => {
-    try {
-      await logoutMutation.mutateAsync();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      clearTokens();
-      navigate("/login");
-    }
-  };
-
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <AppLayout>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
 
-      <button onClick={handleLogout} disabled={logoutMutation.isPending}>
-        {logoutMutation.isPending ? "Logging out..." : "Logout"}
-      </button>
-    </div>
+          <p className="mt-2 text-slate-600">Welcome back to StockPilot.</p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-sm font-medium text-slate-500">Total Sales</h3>
+
+            <p className="mt-2 text-3xl font-bold text-slate-900">₹0</p>
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-sm font-medium text-slate-500">
+              Inventory Items
+            </h3>
+
+            <p className="mt-2 text-3xl font-bold text-slate-900">0</p>
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-sm font-medium text-slate-500">Customers</h3>
+
+            <p className="mt-2 text-3xl font-bold text-slate-900">0</p>
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-sm font-medium text-slate-500">
+              Low Stock Alerts
+            </h3>
+
+            <p className="mt-2 text-3xl font-bold text-red-600">0</p>
+          </div>
+        </div>
+      </div>
+    </AppLayout>
   );
 };
 
