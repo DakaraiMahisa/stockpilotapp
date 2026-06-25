@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui";
+import { usePermissions } from "@/hooks/usePermissions";
 
 interface UserHeaderProps {
   totalUsers: number;
+  onInvite: () => void;
 }
 
-const UserHeader = ({ totalUsers }: UserHeaderProps) => {
+const UserHeader = ({ totalUsers, onInvite }: UserHeaderProps) => {
+  const { hasPermission } = usePermissions();
   return (
     <div className="flex items-start justify-between">
       <div>
@@ -24,7 +27,9 @@ const UserHeader = ({ totalUsers }: UserHeaderProps) => {
         </p>
       </div>
 
-      <Button disabled>Invite User</Button>
+      {hasPermission("users:invite") && (
+        <Button onClick={onInvite}>Invite User</Button>
+      )}
     </div>
   );
 };

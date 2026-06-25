@@ -39,3 +39,8 @@ export interface ResetPasswordRequest {
   token: string;
   newPassword: string;
 }
+
+export interface AcceptInvitationRequest {
+  token: string;
+  password: string;
+}
