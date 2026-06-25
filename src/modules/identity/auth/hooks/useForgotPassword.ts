@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { authService } from "@/modules/auth/services/authService";
+import { authService } from "@/modules/identity/auth/services/authService";
 
 export const useForgotPassword = () => {
   return useMutation({

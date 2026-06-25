@@ -2,7 +2,7 @@ import apiClient from "@/lib/apiClient";
 import type {
   RegisterOrganizationRequest,
   VoidResponse,
-} from "@/modules/auth/types/auth";
+} from "@/modules/identity/auth/types/auth";
 
 import type { LoginRequest, LoginResponse } from "../types/auth";
 import type {

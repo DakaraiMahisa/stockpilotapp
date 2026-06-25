@@ -1,0 +1,35 @@
+export interface PageResponse<T> {
+  content: T[];
+
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+
+  number: number;
+  numberOfElements: number;
+
+  size: number;
+
+  totalElements: number;
+  totalPages: number;
+
+  pageable: Pageable;
+  sort: Sort;
+}
+
+export interface Pageable {
+  offset: number;
+  pageNumber: number;
+  pageSize: number;
+
+  paged: boolean;
+  unpaged: boolean;
+
+  sort: Sort;
+}
+
+export interface Sort {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
