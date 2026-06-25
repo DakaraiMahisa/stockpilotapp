@@ -8,6 +8,7 @@ import type { LoginRequest, LoginResponse } from "../types/auth";
 import type {
   ForgotPasswordRequest,
   ResetPasswordRequest,
+  AcceptInvitationRequest,
 } from "../types/auth";
 
 export const registerOrganization = async (
@@ -61,4 +62,10 @@ export const logout = async () => {
   const response = await apiClient.post("/api/v1/auth/logout/public");
 
   return response.data;
+};
+
+export const acceptInvitation = async (
+  payload: AcceptInvitationRequest,
+): Promise<void> => {
+  await apiClient.post("/api/v1/auth/accept-invitation", payload);
 };

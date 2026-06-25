@@ -13,7 +13,10 @@ import type {
   LoginRequest,
   ForgotPasswordRequest,
   ResetPasswordRequest,
+  AcceptInvitationRequest,
 } from "@/modules/identity/auth/types/auth";
+
+import { acceptInvitation } from "../api/authApi";
 
 const clearTokens = useAuthStore.getState().clearTokens;
 export const authService = {
@@ -67,5 +70,9 @@ export const authService = {
     await initializeCsrf();
     console.log(document.cookie);
     return response;
+  },
+
+  acceptInvitation: async (payload: AcceptInvitationRequest) => {
+    await acceptInvitation(payload);
   },
 };
