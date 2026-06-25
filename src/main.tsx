@@ -9,14 +9,19 @@ import "./styles/theme.css";
 
 const queryClient = new QueryClient();
 
-initializeCsrf().catch((error) => {
-  console.error("Failed to initialize CSRF token", error);
-});
+function renderApp() {
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </React.StrictMode>,
+  );
+}
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </React.StrictMode>,
-);
+initializeCsrf()
+  .then(renderApp)
+  .catch(() => {
+    console.error("CSRF init failed — rendering anyway");
+    renderApp();
+  });

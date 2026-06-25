@@ -6,14 +6,14 @@ import {
   forgotPassword,
   resetPassword,
   logout,
-} from "@/modules/auth/api/authApi";
+} from "@/modules/identity/auth/api/authApi";
 
 import type {
   RegisterOrganizationRequest,
   LoginRequest,
   ForgotPasswordRequest,
   ResetPasswordRequest,
-} from "@/modules/auth/types/auth";
+} from "@/modules/identity/auth/types/auth";
 
 const clearTokens = useAuthStore.getState().clearTokens;
 export const authService = {

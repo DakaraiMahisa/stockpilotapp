@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "@/store/authStore";
-import { useLogout } from "@/modules/auth/hooks/useLogout";
+import { useLogout } from "@/modules/identity/auth/hooks/useLogout";
 
 const UserMenu = () => {
   const navigate = useNavigate();

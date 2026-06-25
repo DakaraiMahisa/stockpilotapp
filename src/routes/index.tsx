@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import RegisterPage from "@/modules/auth/pages/RegisterPage";
-import LoginPage from "@/modules/auth/pages/LoginPage";
-import ForgotPasswordPage from "@/modules/auth/pages/ForgotPasswordPage";
-import ResetPasswordPage from "@/modules/auth/pages/ResetPasswordPage";
-import VerifyEmailPage from "@/modules/auth/pages/VerifyEmailPage";
-import DashboardPage from "@/modules/auth/pages/DashboardPage";
-import ProtectedRoute from "@/modules/auth/guards/ProtectedRoute";
+import RegisterPage from "@/modules/identity/auth/pages/RegisterPage";
+import LoginPage from "@/modules/identity/auth/pages/LoginPage";
+import ForgotPasswordPage from "@/modules/identity/auth/pages/ForgotPasswordPage";
+import ResetPasswordPage from "@/modules/identity/auth/pages/ResetPasswordPage";
+import VerifyEmailPage from "@/modules/identity/auth/pages/VerifyEmailPage";
+import DashboardPage from "@/modules/identity/auth/pages/DashboardPage";
+import UsersPage from "@/modules/identity/users/pages/UsersPage";
+import UserDetailsPage from "@/modules/identity/users/pages/UserDetailsPage";
+import ProtectedRoute from "@/modules/identity/auth/guards/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardPage />,
+      },
+      {
+        path: "/users",
+        element: <UsersPage />,
+      },
+      {
+        path: "/users/:id",
+        element: <UserDetailsPage />,
       },
     ],
   },
