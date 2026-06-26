@@ -2,18 +2,31 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 
 import { Card, Button } from "@/components/ui";
-
+import { useAuthStore } from "@/store/authStore";
 import { useUser } from "../hooks/useUser";
 import UserStatusBadge from "../components/UserStatusBadge";
 import ChangeRoleModal from "../components/ChangeRoleModal";
+import UserSessionsCard from "../components/UserSessionsCard";
 import UserInfoRow from "../components/UserInfoRow";
+import { usePermissions } from "@/hooks/usePermissions";
+import { useActivateUser } from "../hooks/useActivateUser";
+import { useDeactivateUser } from "../hooks/useDeactivateUser";
+import { getErrorMessage } from "@/lib/errorHandler";
 
 const UserDetailsPage = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
 
+  const { hasPermission } = usePermissions();
+  const currentUserId = useAuthStore((state) => state.userId);
+
+  const backPath = hasPermission("users:read") ? "/users" : "/profile";
+
   const [showRoleModal, setShowRoleModal] = useState(false);
+  const { mutate: activate, isPending: activating } = useActivateUser();
+
+  const { mutate: deactivate, isPending: deactivating } = useDeactivateUser();
 
   const { data, isLoading, error } = useUser(id ?? "");
 
@@ -22,19 +35,30 @@ const UserDetailsPage = () => {
   }
 
   if (error || !data) {
-    return <div>Error loading user</div>;
+    return <div>{getErrorMessage(error)}</div>;
   }
 
+  const canChangeRole =
+    hasPermission("users:update") && currentUserId !== data.id;
+
+  const canManageSessions =
+    hasPermission("sessions:read") && hasPermission("sessions:revoke");
+
+  const canActivateUser = hasPermission("users:activate");
+
+  const canDeactivateUser = hasPermission("users:deactivate");
+
+  const isOwnProfile = currentUserId === data.id;
   return (
     <div className="space-y-6">
       <button
-        onClick={() => navigate("/users")}
+        onClick={() => navigate(backPath)}
         className="text-sm"
         style={{
           color: "var(--brand)",
         }}
       >
-        ← Back to Users
+        {hasPermission("users:read") ? "← Back to Users" : "← My Profile"}
       </button>
       <div className="flex items-start justify-between">
         <div>
@@ -57,7 +81,24 @@ const UserDetailsPage = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button onClick={() => setShowRoleModal(true)}>Change Role</Button>
+          {!isOwnProfile && canActivateUser && data.active === false && (
+            <Button disabled={activating} onClick={() => activate(data.id)}>
+              Activate
+            </Button>
+          )}
+
+          {!isOwnProfile && canDeactivateUser && data.active === true && (
+            <Button
+              variant="danger"
+              disabled={deactivating}
+              onClick={() => deactivate(data.id)}
+            >
+              Deactivate
+            </Button>
+          )}
+          {canChangeRole && (
+            <Button onClick={() => setShowRoleModal(true)}>Change Role</Button>
+          )}
 
           <UserStatusBadge status={data.status} />
         </div>
@@ -157,7 +198,8 @@ const UserDetailsPage = () => {
           />
         </div>
       </Card>
-      {showRoleModal && (
+      {canManageSessions && <UserSessionsCard userId={data.id} />}
+      {canChangeRole && showRoleModal && (
         <ChangeRoleModal
           userId={data.id}
           currentRole={data.role}

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { getErrorMessage } from "@/lib/errorHandler";
 import { loginSchema, type LoginFormData } from "../schemas/loginSchema";
 import { useLogin } from "../hooks/useLogin";
 import AuthLayout from "@/components/layout/AuthLayout";
@@ -69,9 +69,7 @@ const LoginForm = () => {
 
           {loginMutation.isError && (
             <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-              {loginMutation.error instanceof Error
-                ? loginMutation.error.message
-                : "Login failed"}
+              {getErrorMessage(loginMutation.error)}
             </div>
           )}
 

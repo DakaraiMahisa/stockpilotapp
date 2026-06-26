@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { getErrorMessage } from "@/lib/errorHandler";
 import {
   resetPasswordSchema,
   type ResetPasswordFormData,
@@ -87,9 +87,7 @@ const ResetPasswordForm = ({ token }: Props) => {
 
             {mutation.isError && (
               <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-                {mutation.error instanceof Error
-                  ? mutation.error.message
-                  : "Password reset failed"}
+                {getErrorMessage(mutation.error)}
               </div>
             )}
 
