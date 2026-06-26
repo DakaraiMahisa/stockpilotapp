@@ -7,6 +7,7 @@ import ResetPasswordPage from "@/modules/identity/auth/pages/ResetPasswordPage";
 import VerifyEmailPage from "@/modules/identity/auth/pages/VerifyEmailPage";
 import DashboardPage from "@/modules/identity/auth/pages/DashboardPage";
 import UsersPage from "@/modules/identity/users/pages/UsersPage";
+import ProfilePage from "@/modules/identity/users/pages/ProfilePage";
 import UserDetailsPage from "@/modules/identity/users/pages/UserDetailsPage";
 import AcceptInvitationPage from "@/modules/identity/auth/pages/AcceptInvitationPage";
 import ProtectedRoute from "@/modules/identity/auth/guards/ProtectedRoute";
@@ -47,6 +48,15 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardPage />,
       },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute requiredPermission="users:read" />,
+    children: [
       {
         path: "/users",
         element: <UsersPage />,

@@ -14,7 +14,7 @@ import AuthCard from "@/components/layout/AuthCard";
 
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-
+import { getErrorMessage } from "@/lib/errorHandler";
 export default function RegisterForm() {
   const navigate = useNavigate();
   const registerMutation = useRegister();
@@ -93,9 +93,7 @@ export default function RegisterForm() {
 
           {registerMutation.isError && (
             <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-              {registerMutation.error instanceof Error
-                ? registerMutation.error.message
-                : "Registration failed"}
+              {getErrorMessage(registerMutation.error)}
             </div>
           )}
 

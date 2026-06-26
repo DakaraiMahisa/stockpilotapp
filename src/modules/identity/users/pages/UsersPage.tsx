@@ -7,6 +7,8 @@ import { Card } from "@/components/ui";
 import { useUsers } from "../hooks/useUsers";
 import { Navigate } from "react-router-dom";
 import { usePermissions } from "@/hooks/usePermissions";
+import { getErrorMessage } from "@/lib/errorHandler";
+
 const UsersPage = () => {
   const [inviteOpen, setInviteOpen] = useState(false);
   const { data, isLoading, error } = useUsers({
@@ -21,8 +23,8 @@ const UsersPage = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error loading users</div>;
+  if (error || !data) {
+    return <div>{getErrorMessage(error)}</div>;
   }
 
   return (

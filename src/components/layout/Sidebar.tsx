@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-
+import { useAuthorization } from "@/hooks/useAuthorization";
 const navigation = [
   {
     name: "Dashboard",
@@ -26,11 +26,28 @@ const navigation = [
     href: "/reports",
     icon: "📈",
   },
+  {
+    name: "Users",
+    href: "/users",
+    icon: "👤",
+  },
+  {
+    name: "Profile",
+    href: "/profile",
+    icon: "👤",
+  },
 ];
 
 const Sidebar = () => {
   const location = useLocation();
+  const { canReadUsers } = useAuthorization();
+  const visibleNavigation = navigation.filter((item) => {
+    if (item.href === "/users") {
+      return canReadUsers;
+    }
 
+    return true;
+  });
   return (
     <aside className="hidden w-64 flex-col border-r border-slate-200 bg-white lg:flex">
       <div className="border-b border-slate-200 p-6">
@@ -41,7 +58,7 @@ const Sidebar = () => {
 
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
-          {navigation.map((item) => {
+          {visibleNavigation.map((item) => {
             const active = location.pathname === item.href;
 
             return (
