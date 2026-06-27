@@ -14,7 +14,7 @@ import AuthCard from "@/components/layout/AuthCard";
 
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { getErrorMessage } from "@/lib/errorHandler";
+
 export default function RegisterForm() {
   const navigate = useNavigate();
   const registerMutation = useRegister();
@@ -39,7 +39,11 @@ export default function RegisterForm() {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await registerMutation.mutateAsync(data);
-      navigate("/verify-email-sent");
+      navigate("/verify-email-sent", {
+        state: {
+          email: data.email,
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -93,14 +97,7 @@ export default function RegisterForm() {
 
           {registerMutation.isError && (
             <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-              {getErrorMessage(registerMutation.error)}
-            </div>
-          )}
-
-          {registerMutation.isSuccess && (
-            <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
-              Registration successful. Please check your email for the
-              verification link.
+              {registerMutation.error.message}
             </div>
           )}
 

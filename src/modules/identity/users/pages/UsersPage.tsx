@@ -7,7 +7,6 @@ import { Card } from "@/components/ui";
 import { useUsers } from "../hooks/useUsers";
 import { Navigate } from "react-router-dom";
 import { usePermissions } from "@/hooks/usePermissions";
-import { getErrorMessage } from "@/lib/errorHandler";
 
 const UsersPage = () => {
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -24,7 +23,7 @@ const UsersPage = () => {
   }
 
   if (error || !data) {
-    return <div>{getErrorMessage(error)}</div>;
+    return <div>{error?.message}</div>;
   }
 
   return (

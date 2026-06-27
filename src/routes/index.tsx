@@ -5,6 +5,7 @@ import LoginPage from "@/modules/identity/auth/pages/LoginPage";
 import ForgotPasswordPage from "@/modules/identity/auth/pages/ForgotPasswordPage";
 import ResetPasswordPage from "@/modules/identity/auth/pages/ResetPasswordPage";
 import VerifyEmailPage from "@/modules/identity/auth/pages/VerifyEmailPage";
+import VerifyEmailSentPage from "@/modules/identity/auth/pages/VerifyEmailSentPage";
 import DashboardPage from "@/modules/identity/auth/pages/DashboardPage";
 import UsersPage from "@/modules/identity/users/pages/UsersPage";
 import ProfilePage from "@/modules/identity/users/pages/ProfilePage";
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/verify-email-sent",
+    element: <VerifyEmailSentPage />,
   },
   {
     path: "/verify-email",

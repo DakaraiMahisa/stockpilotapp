@@ -11,7 +11,6 @@ import UserInfoRow from "../components/UserInfoRow";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useActivateUser } from "../hooks/useActivateUser";
 import { useDeactivateUser } from "../hooks/useDeactivateUser";
-import { getErrorMessage } from "@/lib/errorHandler";
 
 const UserDetailsPage = () => {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const UserDetailsPage = () => {
   }
 
   if (error || !data) {
-    return <div>{getErrorMessage(error)}</div>;
+    return <div>{error?.message}</div>;
   }
 
   const canChangeRole =
