@@ -4,7 +4,6 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 
 import UserInfoRow from "../components/UserInfoRow";
 import UserStatusBadge from "../components/UserStatusBadge";
-import { getErrorMessage } from "@/lib/errorHandler";
 
 const ProfilePage = () => {
   const { data, isLoading, error } = useCurrentUser();
@@ -14,7 +13,7 @@ const ProfilePage = () => {
   }
 
   if (error || !data) {
-    return <div>{getErrorMessage(error)}</div>;
+    return <div>{error?.message}</div>;
   }
   return (
     <div className="space-y-6">

@@ -44,6 +44,7 @@ apiClient.interceptors.request.use(async (config) => {
 
 apiClient.interceptors.response.use(
   (response) => response,
+
   async (error) => {
     const originalRequest = error.config;
 
@@ -56,13 +57,30 @@ apiClient.interceptors.response.use(
       originalRequest._csrfRetry = true;
 
       const token = await fetchCsrfToken();
+
       if (token) {
         originalRequest.headers["X-XSRF-TOKEN"] = token;
+
         return apiClient(originalRequest);
       }
     }
 
-    return Promise.reject(error);
+    if (error.response?.status === 401) {
+      useAuthStore.getState().clearTokens();
+
+      window.location.href = "/login";
+
+      return Promise.reject(
+        new Error("Your session has expired. Please sign in again."),
+      );
+    }
+
+    const message =
+      error.response?.data?.message ??
+      error.response?.data?.error ??
+      "Something went wrong. Please try again.";
+
+    return Promise.reject(new Error(message));
   },
 );
 
