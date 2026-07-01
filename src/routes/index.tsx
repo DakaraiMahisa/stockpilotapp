@@ -12,6 +12,7 @@ import ProfilePage from "@/modules/identity/users/pages/ProfilePage";
 import UserDetailsPage from "@/modules/identity/users/pages/UserDetailsPage";
 import AcceptInvitationPage from "@/modules/identity/auth/pages/AcceptInvitationPage";
 import ProtectedRoute from "@/modules/identity/auth/guards/ProtectedRoute";
+import OrgProfilePage from "@/modules/org/pages/OrgProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,15 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         element: <ProfilePage />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/organization",
+        element: <OrgProfilePage />,
       },
     ],
   },
