@@ -4,7 +4,13 @@ import { Card, Input } from "@/components/ui";
 
 import type { OrganizationFormData } from "../../schema/validation/organization.schema";
 
-export default function TaxInformationSection() {
+interface TaxInformationSectionProps {
+  disabled?: boolean;
+}
+
+export default function TaxInformationSection({
+  disabled = false,
+}: TaxInformationSectionProps) {
   const {
     register,
     formState: { errors },
@@ -23,6 +29,7 @@ export default function TaxInformationSection() {
 
       <Input
         label="GST / VAT Number"
+        disabled={disabled}
         autoComplete="off"
         placeholder="Enter GST or VAT number"
         {...register("gstinVatNumber")}

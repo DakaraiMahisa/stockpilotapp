@@ -5,8 +5,12 @@ import { Card, Input } from "@/components/ui";
 import type { OrganizationFormData } from "../../schema/validation/organization.schema";
 
 import CountrySelect from "@/components/form/CountrySelect";
-
-export default function AddressSection() {
+interface AddressSectionProps {
+  disabled?: boolean;
+}
+export default function AddressSection({
+  disabled = false,
+}: AddressSectionProps) {
   const {
     register,
     watch,
@@ -30,18 +34,22 @@ export default function AddressSection() {
         <CountrySelect
           label="Country"
           value={countryCode}
-          onChange={(countryCode) =>
+          isDisabled={disabled}
+          onChange={(countryCode) => {
+            if (disabled) return;
+
             setValue("countryCode", countryCode, {
               shouldDirty: true,
               shouldValidate: true,
-            })
-          }
+            });
+          }}
           error={errors.countryCode?.message}
         />
 
         <Input
           label="Address Line 1"
           autoComplete="address-line1"
+          disabled={disabled}
           {...register("addressLine1")}
           error={errors.addressLine1?.message}
         />
@@ -49,6 +57,7 @@ export default function AddressSection() {
         <Input
           label="Address Line 2"
           autoComplete="address-line2"
+          disabled={disabled}
           {...register("addressLine2")}
           error={errors.addressLine2?.message}
         />
@@ -56,6 +65,7 @@ export default function AddressSection() {
         <div className="grid gap-5 md:grid-cols-2">
           <Input
             label="City"
+            disabled={disabled}
             autoComplete="address-level2"
             {...register("city")}
             error={errors.city?.message}
@@ -63,6 +73,7 @@ export default function AddressSection() {
 
           <Input
             label="State / Province"
+            disabled={disabled}
             autoComplete="address-level1"
             {...register("stateProvince")}
             error={errors.stateProvince?.message}
@@ -71,6 +82,7 @@ export default function AddressSection() {
 
         <Input
           label="Postal Code"
+          disabled={disabled}
           autoComplete="postal-code"
           {...register("postalCode")}
           error={errors.postalCode?.message}

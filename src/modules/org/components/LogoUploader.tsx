@@ -8,6 +8,7 @@ interface LogoUploaderProps {
   uploading?: boolean;
   loading?: boolean;
   maxSizeMb?: number;
+  disabled?: boolean;
   onFileSelected: (file: File) => void;
 }
 
@@ -18,16 +19,24 @@ export default function LogoUploader({
   uploading = false,
   loading = false,
   maxSizeMb = 2,
+  disabled = false,
   onFileSelected,
 }: LogoUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageError, setImageError] = useState(false);
 
   const handleChooseFile = () => {
+    if (disabled) {
+      return;
+    }
     inputRef.current?.click();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) {
+      event.target.value = "";
+      return;
+    }
     const file = event.target.files?.[0];
 
     if (!file) {
@@ -86,9 +95,9 @@ export default function LogoUploader({
       <Button
         type="button"
         onClick={handleChooseFile}
-        disabled={uploading || loading}
+        disabled={disabled || uploading || loading}
       >
-        {uploading ? "Uploading..." : "Upload Logo"}
+        {uploading ? "Uploading..." : disabled ? "Logo Locked" : "Upload Logo"}
       </Button>
 
       <p className="text-center text-xs text-slate-500">
