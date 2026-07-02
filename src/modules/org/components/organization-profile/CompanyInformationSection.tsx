@@ -10,6 +10,7 @@ interface CompanyInformationSectionProps {
   logoUrl?: string;
   uploading?: boolean;
   loading?: boolean;
+  disabled?: boolean;
   onLogoSelected: (file: File) => void;
 }
 
@@ -17,6 +18,7 @@ export default function CompanyInformationSection({
   logoUrl,
   uploading = false,
   loading = false,
+  disabled = false,
   onLogoSelected,
 }: CompanyInformationSectionProps) {
   const {
@@ -39,18 +41,21 @@ export default function CompanyInformationSection({
           logoUrl={logoUrl}
           loading={loading}
           uploading={uploading}
+          disabled={disabled}
           onFileSelected={onLogoSelected}
         />
 
         <div className="grid gap-5">
           <Input
             label="Legal Name"
+            disabled={disabled}
             {...register("legalName")}
             error={errors.legalName?.message}
           />
 
           <Input
             label="Display Name"
+            disabled={disabled}
             {...register("displayName")}
             error={errors.displayName?.message}
           />
@@ -59,6 +64,7 @@ export default function CompanyInformationSection({
             label="Website"
             type="url"
             placeholder="https://example.com"
+            disabled={disabled}
             {...register("website")}
             error={errors.website?.message}
           />

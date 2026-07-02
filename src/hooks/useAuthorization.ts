@@ -4,6 +4,10 @@ export const useAuthorization = () => {
   const { hasPermission } = usePermissions();
 
   return {
+    canReadOrganization: hasPermission("organization:read"),
+
+    canUpdateOrganization: hasPermission("organization:update"),
+
     canReadUsers: hasPermission("users:read"),
 
     canInviteUsers: hasPermission("users:invite"),

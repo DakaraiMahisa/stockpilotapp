@@ -4,7 +4,12 @@ import { Card, Input } from "@/components/ui";
 
 import type { OrganizationFormData } from "../../schema/validation/organization.schema";
 
-export default function ContactInformationSection() {
+interface ContactInformationSectionProps {
+  disabled?: boolean;
+}
+export default function ContactInformationSection({
+  disabled = false,
+}: ContactInformationSectionProps) {
   const {
     register,
     formState: { errors },
@@ -23,6 +28,7 @@ export default function ContactInformationSection() {
       <div className="grid gap-5 md:grid-cols-2">
         <Input
           label="Email"
+          disabled={disabled}
           type="email"
           autoComplete="email"
           {...register("email")}
@@ -31,6 +37,7 @@ export default function ContactInformationSection() {
 
         <Input
           label="Phone"
+          disabled={disabled}
           type="tel"
           autoComplete="tel"
           placeholder="+263771234567"

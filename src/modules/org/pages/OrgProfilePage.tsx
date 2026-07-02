@@ -23,7 +23,7 @@ import {
 } from "../schema/validation/organization.schema";
 
 import { type Organization } from "../types/org.types";
-
+import { useAuthorization } from "@/hooks/useAuthorization";
 const EMPTY_FORM: OrganizationFormData = {
   legalName: "",
   displayName: "",
@@ -63,6 +63,7 @@ export default function OrgProfilePage() {
 
   const { uploadLogo, isUploading } = useLogoUpload();
 
+  const { canUpdateOrganization } = useAuthorization();
   const form = useForm<OrganizationFormData>({
     resolver: zodResolver(organizationSchema),
     mode: "onBlur",
@@ -171,14 +172,15 @@ export default function OrgProfilePage() {
             logoUrl={logoUrl}
             loading={isLogoLoading}
             uploading={isUploading}
+            disabled={!canUpdateOrganization}
             onLogoSelected={uploadLogo}
           />
 
-          <ContactInformationSection />
+          <ContactInformationSection disabled={!canUpdateOrganization} />
 
-          <AddressSection />
+          <AddressSection disabled={!canUpdateOrganization} />
 
-          <TaxInformationSection />
+          <TaxInformationSection disabled={!canUpdateOrganization} />
 
           <div className="sticky bottom-0 flex justify-end gap-3 border-t bg-white py-6">
             <Button
