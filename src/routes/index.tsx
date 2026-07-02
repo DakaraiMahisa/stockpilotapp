@@ -1,85 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import RegisterPage from "@/modules/identity/auth/pages/RegisterPage";
-import LoginPage from "@/modules/identity/auth/pages/LoginPage";
-import ForgotPasswordPage from "@/modules/identity/auth/pages/ForgotPasswordPage";
-import ResetPasswordPage from "@/modules/identity/auth/pages/ResetPasswordPage";
-import VerifyEmailPage from "@/modules/identity/auth/pages/VerifyEmailPage";
-import VerifyEmailSentPage from "@/modules/identity/auth/pages/VerifyEmailSentPage";
-import DashboardPage from "@/modules/identity/auth/pages/DashboardPage";
-import UsersPage from "@/modules/identity/users/pages/UsersPage";
-import ProfilePage from "@/modules/identity/users/pages/ProfilePage";
-import UserDetailsPage from "@/modules/identity/users/pages/UserDetailsPage";
-import AcceptInvitationPage from "@/modules/identity/auth/pages/AcceptInvitationPage";
 import ProtectedRoute from "@/modules/identity/auth/guards/ProtectedRoute";
-import OrgProfilePage from "@/modules/org/pages/OrgProfilePage";
+
+import {
+  authRoutes,
+  authenticatedRoutes,
+} from "@/modules/identity/routes/auth.routes";
+
+import {
+  profileRoutes,
+  userManagementRoutes,
+} from "@/modules/identity/routes/user.routes";
+
+import { organizationRoutes } from "@/modules/org/routes/organization.routes";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginPage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
-  {
-    path: "/verify-email-sent",
-    element: <VerifyEmailSentPage />,
-  },
-  {
-    path: "/verify-email",
-    element: <VerifyEmailPage />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPasswordPage />,
-  },
-  {
-    path: "/reset-password",
-    element: <ResetPasswordPage />,
-  },
-  {
-    path: "/accept-invitation",
-    element: <AcceptInvitationPage />,
-  },
+  ...authRoutes,
+
   {
     element: <ProtectedRoute />,
-    children: [
-      {
-        path: "/dashboard",
-        element: <DashboardPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfilePage />,
-      },
-    ],
+    children: [...authenticatedRoutes, ...profileRoutes, ...organizationRoutes],
   },
-  {
-    element: <ProtectedRoute />,
-    children: [
-      {
-        path: "/organization",
-        element: <OrgProfilePage />,
-      },
-    ],
-  },
+
   {
     element: <ProtectedRoute requiredPermission="users:read" />,
-    children: [
-      {
-        path: "/users",
-        element: <UsersPage />,
-      },
-      {
-        path: "/users/:id",
-        element: <UserDetailsPage />,
-      },
-    ],
+    children: userManagementRoutes,
   },
 ]);

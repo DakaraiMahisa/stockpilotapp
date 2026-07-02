@@ -24,10 +24,18 @@ export const orgApi = {
     return response.data.data;
   },
 
+  getLogo: async (): Promise<Blob> => {
+    const response = await apiClient.get("/api/v1/org/logo", {
+      responseType: "blob",
+    });
+
+    return response.data;
+  },
+
   async updateProfile(
     request: UpdateOrganizationRequest,
   ): Promise<Organization> {
-    const response = await apiClient.put<ApiResponse<Organization>>(
+    const response = await apiClient.patch<ApiResponse<Organization>>(
       "/api/v1/org/profile",
       request,
     );
@@ -39,7 +47,7 @@ export const orgApi = {
     request: LogoPresignedRequest,
   ): Promise<PresignedUploadResponse> {
     const response = await apiClient.post<ApiResponse<PresignedUploadResponse>>(
-      "/api/v1/org/logo/presigned-url",
+      "/api/v1/org/logo/presigned",
       request,
     );
 
@@ -47,7 +55,7 @@ export const orgApi = {
   },
 
   async confirmLogoUpload(request: LogoConfirmRequest): Promise<Organization> {
-    const response = await apiClient.post<ApiResponse<Organization>>(
+    const response = await apiClient.patch<ApiResponse<Organization>>(
       "/api/v1/org/logo/confirm",
       request,
     );
