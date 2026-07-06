@@ -62,3 +62,91 @@ export interface LogoConfirmRequest {
 export interface UploadLogoFile {
   file: File;
 }
+
+export const BranchType = {
+  RETAIL: "RETAIL",
+  WHOLESALE: "WHOLESALE",
+  WAREHOUSE: "WAREHOUSE",
+  ONLINE: "ONLINE",
+} as const;
+
+export type BranchType = (typeof BranchType)[keyof typeof BranchType];
+
+export const BranchStatus = {
+  DRAFT: "DRAFT",
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+  ARCHIVED: "ARCHIVED",
+} as const;
+
+export type BranchStatus = (typeof BranchStatus)[keyof typeof BranchStatus];
+
+export interface BranchDto {
+  id: string;
+
+  name: string;
+
+  code: string;
+
+  branchType: BranchType;
+
+  phone?: string;
+
+  email?: string;
+
+  addressLine1?: string;
+
+  city?: string;
+
+  defaultBranch: boolean;
+
+  status: BranchStatus;
+
+  manager: BranchManagerDto | null;
+
+  createdAt: string;
+
+  updatedAt: string;
+}
+export interface BranchManagerDto {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+export interface CreateBranchRequest {
+  name: string;
+  code: string;
+  branchType: BranchType;
+  phone?: string;
+  email?: string;
+  addressLine1?: string;
+  city?: string;
+  managerId?: string | null;
+}
+
+export interface UpdateBranchRequest {
+  name?: string;
+  phone?: string;
+  email?: string;
+  addressLine1?: string;
+  city?: string;
+  managerId?: string | null;
+}
+
+export interface UpdateBranchStatusRequest {
+  status: BranchStatus;
+}
+
+export interface DefaultBranchResponse {
+  previousDefaultBranch: BranchDto | null;
+  currentDefaultBranch: BranchDto;
+}
+
+export interface BranchQueryParams {
+  status?: BranchStatus;
+  search?: string;
+  managerId?: string;
+  page?: number;
+  size?: number;
+  sort?: string;
+}
