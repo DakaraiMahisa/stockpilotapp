@@ -13,13 +13,19 @@ import {
 } from "@/modules/identity/routes/user.routes";
 
 import { organizationRoutes } from "@/modules/org/routes/organization.routes";
+import { branchRoutes } from "@/modules/org/routes/branch.routes";
 
 export const router = createBrowserRouter([
   ...authRoutes,
 
   {
     element: <ProtectedRoute />,
-    children: [...authenticatedRoutes, ...profileRoutes, ...organizationRoutes],
+    children: [
+      ...authenticatedRoutes,
+      ...profileRoutes,
+      ...organizationRoutes,
+      ...branchRoutes,
+    ],
   },
 
   {

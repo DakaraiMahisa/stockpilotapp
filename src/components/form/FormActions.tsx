@@ -1,29 +1,35 @@
-import { type ReactNode } from "react";
+import { Button } from "@/components/ui";
 
-interface FormSectionProps {
-  title: string;
-  description?: string;
-  children: ReactNode;
-  className?: string;
+interface FormActionsProps {
+  saving?: boolean;
+  disabled?: boolean;
+  showCancel?: boolean;
+  submitLabel?: string;
+  savingLabel?: string;
+  onCancel?: () => void;
 }
 
-export default function FormSection({
-  title,
-  description,
-  children,
-  className = "",
-}: FormSectionProps) {
+export default function FormActions({
+  saving = false,
+  disabled = false,
+  showCancel = false,
+  submitLabel,
+  savingLabel,
+  onCancel,
+}: FormActionsProps) {
   return (
-    <section className={`space-y-6 ${className}`}>
-      <div>
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+    <div className="flex justify-end gap-3 border-t pt-6">
+      {showCancel && (
+        <Button type="button" variant="secondary" onClick={onCancel}>
+          Cancel
+        </Button>
+      )}
 
-        {description && (
-          <p className="mt-1 text-sm text-gray-500">{description}</p>
-        )}
-      </div>
-
-      {children}
-    </section>
+      <Button type="submit" disabled={disabled || saving}>
+        {saving
+          ? (savingLabel ?? "Saving...")
+          : (submitLabel ?? "Save Changes")}
+      </Button>
+    </div>
   );
 }
