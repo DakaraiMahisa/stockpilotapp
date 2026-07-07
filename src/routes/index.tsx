@@ -14,7 +14,7 @@ import {
 
 import { organizationRoutes } from "@/modules/org/routes/organization.routes";
 import { branchRoutes } from "@/modules/org/routes/branch.routes";
-
+import { PERMISSIONS } from "@/constants/permissions";
 export const router = createBrowserRouter([
   ...authRoutes,
 
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    element: <ProtectedRoute requiredPermission="users:read" />,
+    element: <ProtectedRoute requiredPermission={PERMISSIONS.USERS_READ} />,
     children: userManagementRoutes,
   },
 ]);

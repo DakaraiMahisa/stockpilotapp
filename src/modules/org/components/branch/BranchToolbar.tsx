@@ -1,5 +1,9 @@
 import { Button, Input } from "@/components/ui/index";
 
+import { usePermissions } from "@/hooks/usePermissions";
+
+import { PERMISSIONS } from "@/constants/permissions";
+
 import BranchStatusFilter from "./BranchStatusFilter";
 
 import { BranchStatus } from "../../types/org.types";
@@ -20,6 +24,7 @@ const BranchToolbar = ({
   onStatusChange,
   onCreateBranch,
 }: BranchToolbarProps) => {
+  const { hasPermission } = usePermissions();
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div className="flex flex-1 flex-col gap-3 md:flex-row">
@@ -33,9 +38,11 @@ const BranchToolbar = ({
         <BranchStatusFilter value={status} onChange={onStatusChange} />
       </div>
 
-      <Button variant="primary" onClick={onCreateBranch}>
-        New Branch
-      </Button>
+      {hasPermission(PERMISSIONS.BRANCHES_CREATE) && (
+        <Button variant="primary" onClick={onCreateBranch}>
+          New Branch
+        </Button>
+      )}
     </div>
   );
 };
