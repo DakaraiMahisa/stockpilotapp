@@ -6,6 +6,7 @@ interface FormActionsProps {
   showCancel?: boolean;
   submitLabel?: string;
   savingLabel?: string;
+  formId?: string;
   onCancel?: () => void;
 }
 
@@ -15,6 +16,7 @@ export default function FormActions({
   showCancel = false,
   submitLabel,
   savingLabel,
+  formId,
   onCancel,
 }: FormActionsProps) {
   return (
@@ -25,7 +27,7 @@ export default function FormActions({
         </Button>
       )}
 
-      <Button type="submit" disabled={disabled || saving}>
+      <Button type="submit" form={formId} disabled={disabled || saving}>
         {saving
           ? (savingLabel ?? "Saving...")
           : (submitLabel ?? "Save Changes")}

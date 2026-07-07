@@ -39,7 +39,7 @@ const BranchForm = ({
       email: "",
       addressLine1: "",
       city: "",
-      managerId: null,
+      managerId: "",
       ...initialValues,
     },
   });

@@ -47,10 +47,14 @@ export const branchFormSchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  managerId: z.preprocess(
-    (value) => (value === "" ? undefined : value),
-    z.string().uuid().optional(),
-  ),
+  managerId: z
+    .string()
+    .trim()
+    .optional()
+    .refine(
+      (value) => !value || /^[0-9a-fA-F-]{36}$/.test(value),
+      "Manager ID must be a valid UUID.",
+    ),
 });
 
 export type BranchFormValues = z.infer<typeof branchFormSchema>;
