@@ -9,6 +9,7 @@ import ChangeRoleModal from "../components/ChangeRoleModal";
 import UserSessionsCard from "../components/UserSessionsCard";
 import UserInfoRow from "../components/UserInfoRow";
 import { usePermissions } from "@/hooks/usePermissions";
+import { PERMISSIONS } from "@/constants/permissions";
 import { useActivateUser } from "../hooks/useActivateUser";
 import { useDeactivateUser } from "../hooks/useDeactivateUser";
 
@@ -20,7 +21,9 @@ const UserDetailsPage = () => {
   const { hasPermission } = usePermissions();
   const currentUserId = useAuthStore((state) => state.userId);
 
-  const backPath = hasPermission("users:read") ? "/users" : "/profile";
+  const backPath = hasPermission(PERMISSIONS.USERS_READ)
+    ? "/users"
+    : "/profile";
 
   const [showRoleModal, setShowRoleModal] = useState(false);
   const { mutate: activate, isPending: activating } = useActivateUser();
@@ -38,14 +41,15 @@ const UserDetailsPage = () => {
   }
 
   const canChangeRole =
-    hasPermission("users:update") && currentUserId !== data.id;
+    hasPermission(PERMISSIONS.USERS_UPDATE) && currentUserId !== data.id;
 
   const canManageSessions =
-    hasPermission("sessions:read") && hasPermission("sessions:revoke");
+    hasPermission(PERMISSIONS.SESSIONS_READ) &&
+    hasPermission(PERMISSIONS.SESSIONS_REVOKE);
 
-  const canActivateUser = hasPermission("users:activate");
+  const canActivateUser = hasPermission(PERMISSIONS.USERS_ACTIVATE);
 
-  const canDeactivateUser = hasPermission("users:deactivate");
+  const canDeactivateUser = hasPermission(PERMISSIONS.USERS_DEACTIVATE);
 
   const isOwnProfile = currentUserId === data.id;
   return (
@@ -57,7 +61,9 @@ const UserDetailsPage = () => {
           color: "var(--brand)",
         }}
       >
-        {hasPermission("users:read") ? "← Back to Users" : "← My Profile"}
+        {hasPermission(PERMISSIONS.USERS_READ)
+          ? "← Back to Users"
+          : "← My Profile"}
       </button>
       <div className="flex items-start justify-between">
         <div>

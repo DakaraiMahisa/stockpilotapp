@@ -7,7 +7,7 @@ import { Card } from "@/components/ui";
 import { useUsers } from "../hooks/useUsers";
 import { Navigate } from "react-router-dom";
 import { usePermissions } from "@/hooks/usePermissions";
-
+import { PERMISSIONS } from "@/constants/permissions";
 const UsersPage = () => {
   const [inviteOpen, setInviteOpen] = useState(false);
   const { data, isLoading, error } = useUsers({
@@ -15,7 +15,7 @@ const UsersPage = () => {
     size: 20,
   });
   const { hasPermission } = usePermissions();
-  if (!hasPermission("users:read")) {
+  if (!hasPermission(PERMISSIONS.USERS_READ)) {
     return <Navigate to="/dashboard" replace />;
   }
   if (isLoading) {
