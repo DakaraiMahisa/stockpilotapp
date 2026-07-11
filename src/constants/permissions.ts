@@ -93,6 +93,12 @@ export const PERMISSIONS = {
   // =========================
   SETTINGS_READ: "settings:read",
   SETTINGS_UPDATE: "settings:update",
+
+  // =========================
+  // Business Configuration
+  // =========================
+  BUSINESS_CONFIG_READ: "business-config:read",
+  BUSINESS_CONFIG_UPDATE: "business-config:update",
 } as const;
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
