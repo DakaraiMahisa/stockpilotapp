@@ -130,6 +130,12 @@ export const SIDEBAR: SidebarSection[] = [
           permission: PERMISSIONS.ORGANIZATION_READ,
         },
         {
+          label: "Business Configuration",
+          href: "/organization/business-config",
+          icon: Settings,
+          permission: PERMISSIONS.BUSINESS_CONFIG_READ,
+        },
+        {
           label: "Branches",
           href: "/organization/branches",
           icon: Building,

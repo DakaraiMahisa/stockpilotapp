@@ -9,9 +9,24 @@ const Sidebar = () => {
   const location = useLocation();
 
   const { hasPermission } = usePermissions();
-  const [expandedGroups, setExpandedGroups] = useState<string[]>([
-    "Operations",
-  ]);
+
+  const defaultExpandedGroups = SIDEBAR.flatMap((section) => {
+    if (section.type !== "group") {
+      return [];
+    }
+
+    const isActive = section.group.children.some(
+      (child) =>
+        location.pathname === child.href ||
+        location.pathname.startsWith(`${child.href}/`),
+    );
+
+    return isActive ? [section.group.label] : [];
+  });
+
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(
+    defaultExpandedGroups,
+  );
 
   const toggleGroup = (groupLabel: string) => {
     setExpandedGroups((current) =>
