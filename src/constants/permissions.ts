@@ -35,6 +35,15 @@ export const PERMISSIONS = {
   BRANCHES_SET_DEFAULT: "branches:set-default",
 
   // =========================
+  // Tax
+  // =========================
+  TAX_CONFIG_READ: "tax:read",
+  TAX_CONFIG_CREATE: "tax:create",
+  TAX_CONFIG_UPDATE: "tax:update",
+  TAX_CONFIG_RESOLVE: "tax:resolve",
+  TAX_CONFIG_SET_DEFAULT: "tax:set-default",
+
+  // =========================
   // Inventory
   // =========================
   INVENTORY_READ: "inventory:read",

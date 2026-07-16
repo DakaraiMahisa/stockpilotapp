@@ -142,6 +142,12 @@ export const SIDEBAR: SidebarSection[] = [
           permission: PERMISSIONS.BRANCHES_READ,
         },
         {
+          label: "Tax Management",
+          href: "/organization/taxes",
+          icon: BadgeDollarSign,
+          permission: PERMISSIONS.TAX_CONFIG_READ,
+        },
+        {
           label: "Users",
           href: "/users",
           icon: UserCog,
