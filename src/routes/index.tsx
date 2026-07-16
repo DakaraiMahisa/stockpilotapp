@@ -4,7 +4,6 @@ import ProtectedRoute from "@/modules/identity/auth/guards/ProtectedRoute";
 
 import { identityRoutes } from "@/modules/identity/routes";
 import { orgRoutes } from "@/modules/org/routes";
-
 import { PERMISSIONS } from "@/constants/permissions";
 export const router = createBrowserRouter([
   ...identityRoutes.auth,
