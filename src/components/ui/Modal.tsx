@@ -1,5 +1,7 @@
 import { type ReactNode } from "react";
 
+import { cn } from "@/lib/utils";
+
 interface ModalProps {
   open: boolean;
   title?: string;
@@ -40,15 +42,20 @@ const Modal = ({
       }}
     >
       <div
-        className={`w-full rounded-xl bg-white shadow-xl ${sizeClasses[size]}`}
+        className={cn(
+          "w-full rounded-xl border border-border bg-background text-foreground shadow-xl",
+          sizeClasses[size],
+        )}
         onClick={(e) => e.stopPropagation()}
       >
         {(title || description) && (
-          <div className="border-b px-6 py-5">
+          <div className="border-b border-border px-6 py-5">
             {title && <h2 className="text-xl font-semibold">{title}</h2>}
 
             {description && (
-              <p className="mt-2 text-sm text-gray-500">{description}</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {description}
+              </p>
             )}
           </div>
         )}

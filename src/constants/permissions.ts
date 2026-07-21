@@ -108,6 +108,21 @@ export const PERMISSIONS = {
   // =========================
   BUSINESS_CONFIG_READ: "business-config:read",
   BUSINESS_CONFIG_UPDATE: "business-config:update",
+
+  // =========================
+  // SUBSCRIPTION PLAN
+  // =========================
+  SUBSCRIPTION_READ: "subscription:read",
+  SUBSCRIPTION_UPGRADE: "subscription:upgrade",
+
+  // =========================
+  // ORGANIZATION SETTINGS
+  // =========================
+  ORG_SETTINGS_READ: "settings:read",
+  ORG_SETTINGS_UPDATE_PASSWORD_POLICY: "settings:update-password-policy",
+  ORG_SETTINGS_UPDATE_SESSION_POLICY: "settings:update-session-policy",
+  ORG_SETTINGS_UPDATE_INVITE_POLICY: "settings:update-invite-policy",
+  ORG_SETTINGS_UPDATE_GENERAL: "settings:update-general",
 } as const;
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];

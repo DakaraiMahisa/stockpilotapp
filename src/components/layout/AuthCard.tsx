@@ -11,14 +11,12 @@ const AuthCard = ({ title, subtitle, children }: AuthCardProps) => {
     <Card className="w-full max-w-md">
       <div className="mb-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--brand)] text-white font-bold">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-(--brand)] text-white font-bold">
             SP
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold text-[var(--brand)]">
-              StockPilot
-            </h1>
+            <h1 className="text-2xl font-bold text-(--brand)">StockPilot</h1>
 
             <p className="text-xs text-gray-500">
               Inventory Management Platform
