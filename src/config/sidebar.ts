@@ -18,6 +18,8 @@ import {
   Settings,
   User,
   LayoutDashboard,
+  CreditCard,
+  SlidersHorizontal,
 } from "lucide-react";
 
 import { PERMISSIONS } from "@/constants/permissions";
@@ -146,6 +148,18 @@ export const SIDEBAR: SidebarSection[] = [
           href: "/organization/taxes",
           icon: BadgeDollarSign,
           permission: PERMISSIONS.TAX_CONFIG_READ,
+        },
+        {
+          label: "Subscription",
+          href: "/organization/subscription",
+          icon: CreditCard,
+          permission: PERMISSIONS.SUBSCRIPTION_READ,
+        },
+        {
+          label: "Organization Settings",
+          href: "/organization/settings",
+          icon: SlidersHorizontal,
+          permission: PERMISSIONS.ORG_SETTINGS_READ,
         },
         {
           label: "Users",

@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/Table";
 import { useNavigate } from "react-router-dom";
 import { formatDateTime } from "@/utils/date";
 
