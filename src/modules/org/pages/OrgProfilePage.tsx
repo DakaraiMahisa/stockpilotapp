@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button, Card } from "@/components/ui";
 import { notifier } from "@/lib/notifications/notifier";
-
+import { PageHeader } from "@/components/common";
 import CompanyInformationSection from "../components/organization-profile/CompanyInformationSection";
 import ContactInformationSection from "../components/organization-profile/ContactInformationSection";
 import AddressSection from "../components/organization-profile/AddressSection";
@@ -155,16 +155,10 @@ export default function OrgProfilePage() {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8">
-      <header>
-        <h1 className="text-3xl font-bold text-slate-900">
-          Organization Profile
-        </h1>
-
-        <p className="mt-2 text-slate-600">
-          Manage your organization's branding, contact details and business
-          information.
-        </p>
-      </header>
+      <PageHeader
+        title="Organization Profile"
+        description="Manage your organization's branding, contact details and business information."
+      />
 
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -182,7 +176,7 @@ export default function OrgProfilePage() {
 
           <TaxInformationSection disabled={!canUpdateOrganization} />
 
-          <div className="sticky bottom-0 flex justify-end gap-3 border-t bg-white py-6">
+          <div className="sticky bottom-0 flex justify-end gap-3 border-t bg-surface py-6">
             <Button
               type="button"
               variant="secondary"

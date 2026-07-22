@@ -20,7 +20,7 @@ export default function ContactInformationSection({
       <div className="mb-6">
         <h2 className="text-lg font-semibold">Contact Information</h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-text-secondary">
           Contact details used throughout the platform.
         </p>
       </div>

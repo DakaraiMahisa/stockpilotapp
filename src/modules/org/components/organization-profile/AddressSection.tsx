@@ -25,7 +25,7 @@ export default function AddressSection({
       <div className="mb-6">
         <h2 className="text-lg font-semibold">Address</h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-text-secondary">
           Business location and mailing address.
         </p>
       </div>

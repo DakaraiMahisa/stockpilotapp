@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 import { Button, Card } from "@/components/ui";
+import { Skeleton } from "@/components/feedback";
 import { notifier } from "@/lib/notifications/notifier";
 
 interface LogoUploaderProps {
@@ -67,9 +68,9 @@ export default function LogoUploader({
 
   return (
     <Card className="flex flex-col items-center gap-4 p-6">
-      <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-slate-50">
+      <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border border-border 	bg-surface">
         {loading ? (
-          <div className="h-full w-full animate-pulse bg-slate-200" />
+          <Skeleton className="h-full w-full rounded-full" />
         ) : showImage ? (
           <img
             src={logoUrl}
@@ -78,8 +79,10 @@ export default function LogoUploader({
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-slate-100 text-center">
-            <span className="text-sm font-medium text-slate-500">No Logo</span>
+          <div className="flex h-full w-full items-center justify-center bg-surface-raised text-center">
+            <span className="text-sm font-medium 	text-text-secondary">
+              No Logo
+            </span>
           </div>
         )}
       </div>
@@ -100,7 +103,7 @@ export default function LogoUploader({
         {uploading ? "Uploading..." : disabled ? "Logo Locked" : "Upload Logo"}
       </Button>
 
-      <p className="text-center text-xs text-slate-500">
+      <p className="text-center text-xs 	text-text-secondary">
         PNG or JPEG • Maximum {maxSizeMb} MB
       </p>
     </Card>

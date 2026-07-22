@@ -120,7 +120,7 @@ const TaxListPage = () => {
       </Card>
 
       {isError && (
-        <p className="text-center text-sm text-red-600">
+        <p className="text-center text-sm text-danger">
           Failed to load tax classes.
         </p>
       )}

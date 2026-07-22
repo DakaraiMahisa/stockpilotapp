@@ -25,7 +25,7 @@ const UserMenu = () => {
     <button
       onClick={handleLogout}
       disabled={logoutMutation.isPending}
-      className="rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+      className="rounded-lg bg-danger-tint px-4 py-2 text-sm font-medium text-danger transition hover:bg-danger-tint/80 disabled:cursor-not-allowed disabled:opacity-50"
     >
       {logoutMutation.isPending ? "Logging out..." : "Logout"}
     </button>

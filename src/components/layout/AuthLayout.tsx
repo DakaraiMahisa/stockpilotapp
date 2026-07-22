@@ -7,7 +7,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     <div
       className="
         min-h-screen
-        bg-slate-50
+        bg-background
         flex
         items-center
         justify-center

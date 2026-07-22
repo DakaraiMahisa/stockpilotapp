@@ -1,17 +1,124 @@
-:root {
-  --brand: #1e3a5f;
-  --brand-light: #2563a8;
-  --brand-hover: #1d4ed8;
+/*
+ * THEME CONTRACT — Layer 2
+ */
 
-  --success: #059669;
-  --warning: #d97706;
-  --danger: #dc2626;
+@import "./tokens.css";
+@import "tailwindcss";
 
-  --surface: #ffffff;
-  --background: #f8fafc;
+@custom-variant dark (&:where(.dark, .dark *));
 
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
+@theme {
+  --color-background: var(--neutral-50);
+  --color-surface: var(--neutral-0);
+  --color-surface-raised: var(--neutral-0);
 
-  --border: #e5e7eb;
+  --color-text-primary: var(--neutral-900);
+  --color-text-secondary: var(--neutral-500);
+  --color-text-inverse: var(--neutral-0);
+
+  --color-border: var(--neutral-200);
+  --color-border-strong: var(--neutral-300);
+
+  --color-brand: var(--brand-600);
+  --color-brand-hover: var(--brand-700);
+  --color-brand-tint: var(--brand-50);
+
+  --color-success: var(--success-600);
+  --color-success-hover: var(--success-700);
+  --color-success-tint: var(--success-50);
+  --color-warning: var(--warning-600);
+  --color-warning-hover: var(--warning-700);
+  --color-warning-tint: var(--warning-50);
+  --color-danger: var(--danger-600);
+  --color-danger-hover: var(--danger-700);
+  --color-danger-tint: var(--danger-50);
+
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-16: var(--space-16);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+
+  /* ---- shadcn compatibility bridge ----
+   */
+  --color-foreground: var(--color-text-primary);
+  --color-primary: var(--color-brand);
+  --color-primary-foreground: var(--color-text-inverse);
+  --color-secondary: var(--color-brand-tint);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-surface-raised);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-destructive: var(--color-danger);
+  --color-destructive-foreground: var(--color-text-inverse);
+  --color-ring: var(--color-brand);
+  --color-input: var(--color-border);
+
+  --z-index-dropdown: var(--z-dropdown);
+  --z-index-sticky: var(--z-sticky);
+  --z-index-overlay: var(--z-overlay);
+  --z-index-modal: var(--z-modal);
+  --z-index-toast: var(--z-toast);
+}
+
+.dark {
+  --color-background: var(--neutral-950);
+  --color-surface: var(--neutral-900);
+  --color-surface-raised: var(--neutral-800);
+
+  --color-text-primary: var(--neutral-50);
+  --color-text-secondary: var(--neutral-400);
+  --color-text-inverse: var(--neutral-900);
+
+  --color-border: var(--neutral-700);
+  --color-border-strong: var(--neutral-600);
+
+  --color-brand: var(--brand-400);
+  --color-brand-hover: var(--brand-300);
+  --color-brand-tint: var(--brand-900);
+
+  --color-success: var(--success-500);
+  --color-success-hover: var(--success-600);
+  --color-success-tint: var(--success-900);
+  --color-warning: var(--warning-500);
+  --color-warning-hover: var(--warning-600);
+  --color-warning-tint: var(--warning-900);
+  --color-danger: var(--danger-500);
+  --color-danger-hover: var(--danger-600);
+  --color-danger-tint: var(--danger-900);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+  }
 }

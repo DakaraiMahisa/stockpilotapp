@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Card } from "@/components/ui";
-
+import { PageHeader } from "@/components/common";
 import BranchForm from "../components/forms/BranchForm";
 import { useCreateBranch } from "../hooks/useCreateBranch";
 import type { BranchFormValues } from "../components/forms/branchFormSchema";
@@ -19,11 +19,10 @@ const CreateBranchPage = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">Create Branch</h1>
-
-        <p className="text-gray-500">Add a new branch to your organization.</p>
-      </div>
+      <PageHeader
+        title="Create Branch"
+        description="Add a new branch to your organization."
+      />
 
       <Card>
         <BranchForm

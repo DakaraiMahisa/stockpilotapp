@@ -5,9 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { router } from "./routes";
 import { AppToaster } from "./components/ui/AppToaster";
 import { initializeCsrf } from "./lib/initializeCsrf";
-import "./index.css";
 import "./styles/theme.css";
+import { applyStoredOrSystemTheme } from "./lib/theme-bootstrap";
 import "flag-icons/css/flag-icons.min.css";
+applyStoredOrSystemTheme();
 const queryClient = new QueryClient();
 
 function renderApp() {

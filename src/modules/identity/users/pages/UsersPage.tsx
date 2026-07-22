@@ -19,11 +19,11 @@ const UsersPage = () => {
     return <Navigate to="/dashboard" replace />;
   }
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-text-secondary">Loading...</div>;
   }
 
   if (error || !data) {
-    return <div>{error?.message}</div>;
+    return <div className="text-danger">{error?.message}</div>;
   }
 
   return (
