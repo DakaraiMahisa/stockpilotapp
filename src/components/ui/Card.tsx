@@ -7,10 +7,10 @@ const Card = ({ children, className = "" }: CardProps) => {
   return (
     <div
       className={`
-        bg-white
+        bg-surface
         rounded-xl
         border
-        border-gray-200
+        border-border
         shadow-sm
         p-6
         ${className}

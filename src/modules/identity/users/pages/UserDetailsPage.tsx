@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, Button } from "@/components/ui";
 import { useAuthStore } from "@/store/authStore";
 import { useUser } from "../hooks/useUser";
+import { PageHeader } from "@/components/common";
 import UserStatusBadge from "../components/UserStatusBadge";
 import ChangeRoleModal from "../components/ChangeRoleModal";
 import UserSessionsCard from "../components/UserSessionsCard";
@@ -54,37 +55,15 @@ const UserDetailsPage = () => {
   const isOwnProfile = currentUserId === data.id;
   return (
     <div className="space-y-6">
-      <button
-        onClick={() => navigate(backPath)}
-        className="text-sm"
-        style={{
-          color: "var(--brand)",
-        }}
-      >
+      <button onClick={() => navigate(backPath)} className="text-sm text-brand">
         {hasPermission(PERMISSIONS.USERS_READ)
           ? "← Back to Users"
           : "← My Profile"}
       </button>
-      <div className="flex items-start justify-between">
-        <div>
-          <h1
-            className="text-3xl font-bold"
-            style={{
-              color: "var(--text-primary)",
-            }}
-          >
-            {data.firstName} {data.lastName}
-          </h1>
-
-          <p
-            style={{
-              color: "var(--text-secondary)",
-            }}
-          >
-            {data.email}
-          </p>
-        </div>
-
+      <PageHeader
+        title={`${data.firstName} ${data.lastName}`}
+        description={data.email}
+      >
         <div className="flex items-center gap-3">
           {!isOwnProfile && canActivateUser && data.active === false && (
             <Button disabled={activating} onClick={() => activate(data.id)}>
@@ -107,12 +86,12 @@ const UserDetailsPage = () => {
 
           <UserStatusBadge status={data.status} />
         </div>
-      </div>
+      </PageHeader>
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <div className="space-y-4">
             <h2
-              className="text-xl font-semibold"
+              className="text-xl font-semibold text-text-primary"
               style={{
                 color: "var(--text-primary)",
               }}
@@ -164,12 +143,7 @@ const UserDetailsPage = () => {
             {data.permissions.map((permission) => (
               <span
                 key={permission}
-                className="rounded-md px-3 py-1.5text-sm font-medium"
-                style={{
-                  backgroundColor: "#f3f4f6",
-                  color: "var(--text-primary)",
-                  border: "1px solid var(--border)",
-                }}
+                className="rounded-md border border-border bg-surface-raised px-3 py-1.5 text-sm font-medium text-text-primary"
               >
                 {permission}
               </span>

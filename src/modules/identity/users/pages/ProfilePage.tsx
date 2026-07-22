@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui";
 
 import { useCurrentUser } from "../hooks/useCurrentUser";
-
+import { PageHeader } from "@/components/common";
 import UserInfoRow from "../components/UserInfoRow";
 import UserStatusBadge from "../components/UserStatusBadge";
 
@@ -17,17 +17,12 @@ const ProfilePage = () => {
   }
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">
-            {data.firstName} {data.lastName}
-          </h1>
-
-          <p>{data.email}</p>
-        </div>
-
+      <PageHeader
+        title={`${data.firstName} ${data.lastName}`}
+        description={data.email}
+      >
         <UserStatusBadge status={data.status} />
-      </div>
+      </PageHeader>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>

@@ -21,7 +21,7 @@ export default function TaxInformationSection({
       <div className="mb-6">
         <h2 className="text-lg font-semibold">Tax Information</h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-text-secondary">
           Optional tax registration information used for invoicing and
           regulatory compliance.
         </p>

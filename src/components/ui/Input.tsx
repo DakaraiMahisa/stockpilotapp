@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-text-secondary"
           >
             {label}
           </label>
@@ -32,6 +32,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             w-full
             rounded-lg
             border
+            bg-surface
+            text-text-primary
             px-3
             py-2
             transition-colors
@@ -39,8 +41,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             focus:ring-2
             ${
               error
-                ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:ring-blue-500"
+                ? "border-danger focus:ring-danger"
+                : "border-border focus:ring-brand"
             }
             ${className ?? ""}
           `}
@@ -48,7 +50,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         />
 
         {error && (
-          <p id={errorId} className="text-sm text-red-500">
+          <p id={errorId} className="text-sm text-danger">
             {error}
           </p>
         )}

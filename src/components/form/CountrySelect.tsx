@@ -3,7 +3,7 @@ import Select, {
   type OptionProps,
   type SingleValueProps,
 } from "react-select";
-
+import { selectStyles } from "@/lib/react-select-styles";
 import { COUNTRIES, type CountryOption } from "@/lib/constants/countries";
 
 interface CountrySelectProps {
@@ -54,7 +54,10 @@ export default function CountrySelect({
   return (
     <div className={`space-y-2 ${className}`}>
       {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor={id}
+          className="block text-sm font-medium text-text-secondary"
+        >
           {label}
         </label>
       )}
@@ -69,13 +72,14 @@ export default function CountrySelect({
         isClearable={false}
         placeholder="Select a country..."
         classNamePrefix="react-select"
+        styles={selectStyles<CountryOption>()}
         components={{
           Option: CountryOptionComponent,
           SingleValue: CountrySingleValue,
         }}
       />
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-danger">{error}</p>}
     </div>
   );
 }

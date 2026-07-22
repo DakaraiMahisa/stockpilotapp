@@ -19,7 +19,7 @@ export default function EmptyState({
 
       <h3 className="text-lg font-semibold">{title}</h3>
 
-      <p className="mt-2 max-w-md text-sm text-gray-500">{description}</p>
+      <p className="mt-2 max-w-md text-sm text-text-secondary">{description}</p>
 
       {action && <div className="mt-6">{action}</div>}
     </div>

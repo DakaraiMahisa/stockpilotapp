@@ -1,19 +1,37 @@
 import UserMenu from "./UserMenu";
+import { ThemeToggle } from "@/components/ui";
 
 const Topbar = () => {
   return (
-    <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">
+    <header
+      className="
+        sticky
+        top-0
+        z-sticky
+        flex
+        h-16
+        items-center
+        justify-between
+        border-b
+        border-border
+        bg-background/95
+        px-8
+        backdrop-blur
+      "
+    >
       <div>
-        <h2 className="text-lg font-semibold text-slate-900">Dashboard</h2>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          Dashboard
+        </h1>
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="hidden text-right sm:block">
-          <p className="text-sm font-medium text-slate-900">Welcome Back</p>
+        <div className="hidden text-right md:block">
+          <p className="text-sm font-medium text-foreground">Welcome back</p>
 
-          <p className="text-xs text-slate-500">StockPilot User</p>
+          <p className="text-xs text-muted-foreground">StockPilot User</p>
         </div>
-
+        <ThemeToggle />
         <UserMenu />
       </div>
     </header>

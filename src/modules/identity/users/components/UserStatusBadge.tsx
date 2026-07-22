@@ -13,16 +13,16 @@ const UserStatusBadge = ({ status }: UserStatusBadgeProps) => {
     }
   > = {
     ACTIVE: {
-      backgroundColor: "rgba(5, 150, 105, 0.12)",
-      color: "var(--success)",
+      backgroundColor: "var(--color-success-tint)",
+      color: "var(--color-success)",
     },
     INVITED: {
-      backgroundColor: "rgba(217, 119, 6, 0.12)",
-      color: "var(--warning)",
+      backgroundColor: "var(--color-warning-tint)",
+      color: "var(--color-warning)",
     },
     DEACTIVATED: {
-      backgroundColor: "rgba(220, 38, 38, 0.12)",
-      color: "var(--danger)",
+      backgroundColor: "var(--color-danger-tint)",
+      color: "var(--color-danger)",
     },
   };
 

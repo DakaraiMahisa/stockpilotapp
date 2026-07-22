@@ -8,7 +8,7 @@ export default function Skeleton({ className = "" }: SkeletonProps) {
       className={`
         animate-pulse
         rounded-md
-        bg-gray-200
+        bg-surface-raised
         ${className}
       `}
     />

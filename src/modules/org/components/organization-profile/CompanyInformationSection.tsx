@@ -31,7 +31,7 @@ export default function CompanyInformationSection({
       <div className="mb-6">
         <h2 className="text-lg font-semibold">Company Information</h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-text-secondary">
           Update your organization's public business information.
         </p>
       </div>

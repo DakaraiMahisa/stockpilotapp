@@ -2,8 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { Card } from "@/components/ui";
 
+import { EmptyState } from "@/components/feedback";
+
 import BranchForm from "../components/forms/BranchForm";
 import BranchSkeleton from "../components/branch/BranchSkeleton";
+import { PageHeader } from "@/components/common";
 import { useBranch } from "../hooks/useBranch";
 import { useUpdateBranch } from "../hooks/useUpdateBranch";
 
@@ -23,16 +26,19 @@ const EditBranchPage = () => {
   const branch = data?.data;
 
   if (!branch) {
-    return <Card className="p-8">Branch not found.</Card>;
+    return (
+      <EmptyState
+        title="Branch not found"
+        description="This branch may have been removed or the link is incorrect."
+      />
+    );
   }
-
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">Edit Branch</h1>
-
-        <p className="text-gray-500">Update branch information.</p>
-      </div>
+      <PageHeader
+        title="Edit Branch"
+        description="Update branch information."
+      />
 
       <Card>
         <BranchForm

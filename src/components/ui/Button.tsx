@@ -29,14 +29,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const variantClasses = {
-      primary: "bg-[var(--brand)] text-white hover:bg-[var(--brand-hover)]",
+      primary: "bg-brand text-text-inverse hover:bg-brand-hover",
 
-      secondary: "bg-muted text-foreground hover:bg-muted/80",
+      secondary: "bg-brand-tint text-text-primary hover:bg-brand-100",
 
       outline:
-        "border border-border bg-background text-foreground hover:bg-muted",
+        "border border-border bg-surface text-text-primary hover:bg-surface-raised",
 
-      danger: "bg-red-600 text-white hover:bg-red-700",
+      danger: "bg-danger text-text-inverse hover:bg-danger-hover",
     };
 
     const sizeClasses = {
@@ -52,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         className={cn(
           "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors",
-          "focus:outline-none focus:ring-2 focus:ring-(--brand) focus:ring-offset-2",
+          "focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
           variantClasses[variant],
           sizeClasses[size],
