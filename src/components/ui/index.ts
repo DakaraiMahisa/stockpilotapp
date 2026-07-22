@@ -7,3 +7,4 @@ export { Badge } from "./badge";
 export { default as Textarea } from "./Textarea";
 export { default as Progress } from "./Progress";
 export { default as ThemeToggle } from "./ThemeToggle";
+export { default as Switch } from "./Switch";

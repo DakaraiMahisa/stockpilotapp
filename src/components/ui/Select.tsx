@@ -3,11 +3,13 @@ import { cn } from "@/lib/utils";
 export interface SelectOption {
   label: string;
   value: string;
+  disabled?: boolean;
 }
 
 interface SelectProps {
   label?: string;
-  options: SelectOption[];
+
+  options: ReadonlyArray<SelectOption>;
 
   value?: string;
 
@@ -56,7 +58,11 @@ const Select = ({
         <option value="">{placeholder}</option>
 
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
             {option.label}
           </option>
         ))}
