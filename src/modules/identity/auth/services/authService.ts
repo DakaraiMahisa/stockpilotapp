@@ -6,6 +6,7 @@ import {
   forgotPassword,
   resetPassword,
   logout,
+  changePassword,
 } from "@/modules/identity/auth/api/authApi";
 
 import type {
@@ -14,6 +15,7 @@ import type {
   ForgotPasswordRequest,
   ResetPasswordRequest,
   AcceptInvitationRequest,
+  ChangePasswordRequest,
 } from "@/modules/identity/auth/types/auth";
 
 import { acceptInvitation } from "../api/authApi";
@@ -74,5 +76,9 @@ export const authService = {
 
   acceptInvitation: async (payload: AcceptInvitationRequest) => {
     await acceptInvitation(payload);
+  },
+
+  changePassword: async (payload: ChangePasswordRequest) => {
+    await changePassword(payload);
   },
 };
