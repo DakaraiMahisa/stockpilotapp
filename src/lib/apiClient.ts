@@ -64,8 +64,8 @@ apiClient.interceptors.response.use(
         return apiClient(originalRequest);
       }
     }
-
-    if (error.response?.status === 401) {
+    const hasAccessToken = Boolean(useAuthStore.getState().accessToken);
+    if (error.response?.status === 401 && hasAccessToken) {
       useAuthStore.getState().clearTokens();
 
       window.location.href = "/login";

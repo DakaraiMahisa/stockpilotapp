@@ -4,7 +4,11 @@ import type {
   VoidResponse,
 } from "@/modules/identity/auth/types/auth";
 
-import type { LoginRequest, LoginResponse } from "../types/auth";
+import type {
+  LoginRequest,
+  LoginResponse,
+  ChangePasswordRequest,
+} from "../types/auth";
 import type {
   ForgotPasswordRequest,
   ResetPasswordRequest,
@@ -68,4 +72,10 @@ export const acceptInvitation = async (
   payload: AcceptInvitationRequest,
 ): Promise<void> => {
   await apiClient.post("/api/v1/auth/accept-invitation", payload);
+};
+
+export const changePassword = async (
+  payload: ChangePasswordRequest,
+): Promise<void> => {
+  await apiClient.put("/api/v1/auth/change-password/public", payload);
 };
