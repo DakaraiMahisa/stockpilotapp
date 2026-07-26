@@ -130,7 +130,7 @@ const BusinessConfigForm = ({
             </select>
 
             {errors.currencyPosition && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-danger">
                 {errors.currencyPosition.message}
               </p>
             )}
@@ -171,7 +171,7 @@ const BusinessConfigForm = ({
             </select>
 
             {errors.timeFormat && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-danger">
                 {errors.timeFormat.message}
               </p>
             )}
@@ -195,7 +195,7 @@ const BusinessConfigForm = ({
             </select>
 
             {errors.numberFormat && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-danger">
                 {errors.numberFormat.message}
               </p>
             )}
@@ -226,7 +226,7 @@ const BusinessConfigForm = ({
             </select>
 
             {errors.weightUnit && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-danger">
                 {errors.weightUnit.message}
               </p>
             )}
@@ -250,7 +250,7 @@ const BusinessConfigForm = ({
             </select>
 
             {errors.dimensionUnit && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1 text-sm text-danger">
                 {errors.dimensionUnit.message}
               </p>
             )}

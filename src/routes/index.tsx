@@ -4,6 +4,7 @@ import ProtectedRoute from "@/modules/identity/auth/guards/ProtectedRoute";
 
 import { identityRoutes } from "@/modules/identity/routes";
 import { orgRoutes } from "@/modules/org/routes";
+import { catalogRoutes } from "@/modules/catalog/routes";
 import { PERMISSIONS } from "@/constants/permissions";
 export const router = createBrowserRouter([
   ...identityRoutes.auth,
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     element: <ProtectedRoute requiredPermission={PERMISSIONS.USERS_READ} />,
     children: identityRoutes.users,
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [...catalogRoutes],
   },
 ]);

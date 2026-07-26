@@ -105,9 +105,9 @@ export const SIDEBAR: SidebarSection[] = [
         },
         {
           label: "Categories",
-          href: "/categories",
+          href: "/catalog/categories",
           icon: Tags,
-          permission: PERMISSIONS.CATEGORIES_READ,
+          permission: PERMISSIONS.CATEGORY_READ,
         },
         {
           label: "Suppliers",

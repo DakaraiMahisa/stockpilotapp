@@ -60,14 +60,6 @@ export const PERMISSIONS = {
   PRODUCTS_DELETE: "products:delete",
 
   // =========================
-  // Categories
-  // =========================
-  CATEGORIES_READ: "categories:read",
-  CATEGORIES_CREATE: "categories:create",
-  CATEGORIES_UPDATE: "categories:update",
-  CATEGORIES_DELETE: "categories:delete",
-
-  // =========================
   // Suppliers
   // =========================
   SUPPLIERS_READ: "suppliers:read",
@@ -123,6 +115,15 @@ export const PERMISSIONS = {
   ORG_SETTINGS_UPDATE_SESSION_POLICY: "settings:update-session-policy",
   ORG_SETTINGS_UPDATE_INVITE_POLICY: "settings:update-invite-policy",
   ORG_SETTINGS_UPDATE_GENERAL: "settings:update-general",
+
+  // =========================
+  // CATEGORY
+  // =========================
+  CATEGORY_READ: "category:read",
+  CATEGORY_CREATE: "category:create",
+  CATEGORY_UPDATE: "category:update",
+  CATEGORY_MOVE: "category:move",
+  CATEGORY_DELETE: "category:delete",
 } as const;
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
