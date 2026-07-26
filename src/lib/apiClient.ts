@@ -80,7 +80,8 @@ apiClient.interceptors.response.use(
       error.response?.data?.error ??
       "Something went wrong. Please try again.";
 
-    return Promise.reject(new Error(message));
+    error.message = message;
+    return Promise.reject(error);
   },
 );
 
