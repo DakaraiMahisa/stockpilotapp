@@ -6,6 +6,8 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
+let refreshPromise: Promise<string | null> | null = null;
+
 const getCsrfToken = (): string | undefined => {
   const raw = document.cookie
     .split("; ")
@@ -17,6 +19,48 @@ const getCsrfToken = (): string | undefined => {
 const fetchCsrfToken = async (): Promise<string | undefined> => {
   await apiClient.get("/api/csrf-token/public");
   return getCsrfToken();
+};
+
+const refreshAccessToken = async (): Promise<string | null> => {
+  if (refreshPromise) {
+    return refreshPromise;
+  }
+
+  refreshPromise = (async () => {
+    try {
+      const { refreshToken } = useAuthStore.getState();
+
+      if (!refreshToken) {
+        return null;
+      }
+
+      const response = await apiClient.post(
+        "/api/v1/auth/refresh",
+        { refreshToken },
+        {
+          headers: {
+            "X-Skip-Refresh": "true",
+          },
+        },
+      );
+
+      const tokens = response.data.data;
+
+      useAuthStore
+        .getState()
+        .setTokens(tokens.accessToken, tokens.refreshToken);
+
+      return tokens.accessToken;
+    } catch {
+      useAuthStore.getState().clearTokens();
+
+      return null;
+    } finally {
+      refreshPromise = null;
+    }
+  })();
+
+  return refreshPromise;
 };
 
 const MUTATING_METHODS = ["post", "put", "patch", "delete"];
@@ -48,6 +92,14 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    if (!originalRequest) {
+      return Promise.reject(error);
+    }
+
+    if (originalRequest.headers?.["X-Skip-Refresh"]) {
+      return Promise.reject(error);
+    }
+
     if (
       (error.response?.status === 403 &&
         error.response?.data?.code === "CSRF_TOKEN_MISSING") ||
@@ -65,7 +117,25 @@ apiClient.interceptors.response.use(
       }
     }
     const hasAccessToken = Boolean(useAuthStore.getState().accessToken);
-    if (error.response?.status === 401 && hasAccessToken) {
+
+    if (
+      error.response?.status === 401 &&
+      hasAccessToken &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      const newAccessToken = await refreshAccessToken();
+
+      if (newAccessToken) {
+        originalRequest.headers = {
+          ...originalRequest.headers,
+          Authorization: `Bearer ${newAccessToken}`,
+        };
+
+        return apiClient(originalRequest);
+      }
+
       useAuthStore.getState().clearTokens();
 
       window.location.href = "/login";
