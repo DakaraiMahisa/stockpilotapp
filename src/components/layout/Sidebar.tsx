@@ -80,15 +80,23 @@ const Sidebar = () => {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ${
+                  className={`group flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
                     active
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-muted-foreground hover:bg-brand-tint hover:text-foreground hover:translate-x-1"
                   }`}
                 >
-                  <Icon className="h-5 w-5 shrink-0" />
+                  <div
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-all duration-200 ${
+                      active
+                        ? "bg-primary-foreground/15 text-primary-foreground"
+                        : "bg-brand-tint text-brand group-hover:scale-105"
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
 
-                  <span>{item.label}</span>
+                  <span className="truncate">{item.label}</span>
 
                   {item.badge && (
                     <Badge variant="secondary" className="ml-auto">
@@ -118,7 +126,24 @@ const Sidebar = () => {
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.label)}
-                  className="mb-2 flex w-full items-center rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:bg-muted"
+                  className="
+    mb-2
+    flex
+    w-full
+    items-center
+    rounded-xl
+    px-3
+    py-2
+    text-xs
+    font-semibold
+    uppercase
+    tracking-wider
+    text-muted-foreground
+    transition-all
+    duration-200
+    hover:bg-brand-tint
+    hover:text-brand
+  "
                 >
                   {expanded ? (
                     <ChevronDown className="mr-2 h-4 w-4" />
@@ -126,7 +151,7 @@ const Sidebar = () => {
                     <ChevronRight className="mr-2 h-4 w-4" />
                   )}
 
-                  <GroupIcon className="mr-2 h-4 w-4" />
+                  <GroupIcon className="mr-2 h-4 w-4 text-brand" />
 
                   <span>{group.label}</span>
                 </button>
@@ -175,14 +200,24 @@ const Sidebar = () => {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-border px-6 py-4">
-        <p className="text-sm font-medium text-foreground">StockPilot</p>
+      <div className="border-t border-border bg-surface px-6 py-5">
+        <div className="space-y-3">
+          <div>
+            <p className="text-sm font-semibold text-foreground">StockPilot</p>
 
-        <p className="mt-1 text-xs text-muted-foreground">
-          SME Management Platform
-        </p>
+            <p className="text-xs text-muted-foreground">
+              Inventory & Sales Management Platform
+            </p>
+          </div>
 
-        <p className="mt-3 text-xs text-muted-foreground">Version 1.0.0</p>
+          <div className="flex items-center justify-between text-xs">
+            <span className="rounded-full bg-brand-tint px-2 py-1 font-medium text-brand">
+              v1.0.0
+            </span>
+
+            <span className="text-muted-foreground">© 2026</span>
+          </div>
+        </div>
       </div>
     </aside>
   );

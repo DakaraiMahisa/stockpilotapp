@@ -4,7 +4,7 @@ import ForgotPasswordPage from "../auth/pages/ForgotPasswordPage";
 import ResetPasswordPage from "../auth/pages/ResetPasswordPage";
 import VerifyEmailPage from "../auth/pages/VerifyEmailPage";
 import VerifyEmailSentPage from "../auth/pages/VerifyEmailSentPage";
-import DashboardPage from "../auth/pages/DashboardPage";
+import DashboardPage from "../../dashboard/pages/DashboardPage";
 import AcceptInvitationPage from "../auth/pages/AcceptInvitationPage";
 
 export const authRoutes = [
