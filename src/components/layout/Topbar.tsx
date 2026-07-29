@@ -1,7 +1,10 @@
+import CurrentTime from "./CurrentTime";
+import UserInfo from "./UserInfo";
 import UserMenu from "./UserMenu";
 import { ThemeToggle } from "@/components/ui";
-
+import { usePageMetadata } from "@/components/hooks/usePageMetadata";
 const Topbar = () => {
+  const { title, subtitle } = usePageMetadata();
   return (
     <header
       className="
@@ -19,19 +22,25 @@ const Topbar = () => {
         backdrop-blur
       "
     >
+      {/* Left Section */}
       <div>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Dashboard
+          {title}
         </h1>
+
+        {subtitle && (
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
+        )}
       </div>
 
-      <div className="flex items-center gap-4">
-        <div className="hidden text-right md:block">
-          <p className="text-sm font-medium text-foreground">Welcome back</p>
+      {/* Right Section */}
+      <div className="flex items-center gap-6">
+        <CurrentTime />
 
-          <p className="text-xs text-muted-foreground">StockPilot User</p>
-        </div>
+        <UserInfo />
+
         <ThemeToggle />
+
         <UserMenu />
       </div>
     </header>
