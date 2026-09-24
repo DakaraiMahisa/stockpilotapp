@@ -99,7 +99,7 @@ export const SIDEBAR: SidebarSection[] = [
       children: [
         {
           label: "Products",
-          href: "/products",
+          href: "/catalog/products",
           icon: Package,
           permission: PERMISSIONS.PRODUCTS_READ,
         },
@@ -108,6 +108,24 @@ export const SIDEBAR: SidebarSection[] = [
           href: "/catalog/categories",
           icon: Tags,
           permission: PERMISSIONS.CATEGORY_READ,
+        },
+        {
+          label: "Brands",
+          href: "/catalog/brands",
+          icon: Tags,
+          permission: PERMISSIONS.BRAND_READ,
+        },
+        {
+          label: "Variant Attributes",
+          href: "/catalog/variant-attributes",
+          icon: SlidersHorizontal,
+          permission: PERMISSIONS.PRODUCT_VARIANT_READ,
+        },
+        {
+          label: "Pricing",
+          href: "/catalog/pricing",
+          icon: SlidersHorizontal,
+          permission: PERMISSIONS.CATALOG_PRICING_READ,
         },
         {
           label: "Suppliers",
