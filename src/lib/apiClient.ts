@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useAuthStore } from "@/store/authStore";
+import authClient from "./authClient";
+import { fetchCsrfToken, getCsrfToken } from "./csrf";
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -8,18 +10,7 @@ const apiClient = axios.create({
 
 let refreshPromise: Promise<string | null> | null = null;
 
-const getCsrfToken = (): string | undefined => {
-  const raw = document.cookie
-    .split("; ")
-    .find((cookie) => cookie.startsWith("XSRF-TOKEN="))
-    ?.split("=")[1];
-  return raw ? decodeURIComponent(raw) : undefined;
-};
-
-const fetchCsrfToken = async (): Promise<string | undefined> => {
-  await apiClient.get("/api/csrf-token/public");
-  return getCsrfToken();
-};
+const MUTATING_METHODS = ["post", "put", "patch", "delete"];
 
 const refreshAccessToken = async (): Promise<string | null> => {
   if (refreshPromise) {
@@ -34,12 +25,22 @@ const refreshAccessToken = async (): Promise<string | null> => {
         return null;
       }
 
-      const response = await apiClient.post(
-        "/api/v1/auth/refresh",
+      let csrfToken = getCsrfToken();
+
+      if (!csrfToken) {
+        csrfToken = await fetchCsrfToken(authClient);
+      }
+
+      if (!csrfToken) {
+        return null;
+      }
+
+      const response = await authClient.post(
+        "/api/v1/auth/refresh/public",
         { refreshToken },
         {
           headers: {
-            "X-Skip-Refresh": "true",
+            "X-XSRF-TOKEN": csrfToken,
           },
         },
       );
@@ -53,7 +54,6 @@ const refreshAccessToken = async (): Promise<string | null> => {
       return tokens.accessToken;
     } catch {
       useAuthStore.getState().clearTokens();
-
       return null;
     } finally {
       refreshPromise = null;
@@ -63,23 +63,22 @@ const refreshAccessToken = async (): Promise<string | null> => {
   return refreshPromise;
 };
 
-const MUTATING_METHODS = ["post", "put", "patch", "delete"];
-
 apiClient.interceptors.request.use(async (config) => {
   const accessToken = useAuthStore.getState().accessToken;
+
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   if (MUTATING_METHODS.includes(config.method?.toLowerCase() ?? "")) {
-    let token = getCsrfToken();
+    let csrfToken = getCsrfToken();
 
-    if (!token) {
-      token = await fetchCsrfToken();
+    if (!csrfToken) {
+      csrfToken = await fetchCsrfToken(authClient);
     }
 
-    if (token) {
-      config.headers["X-XSRF-TOKEN"] = token;
+    if (csrfToken) {
+      config.headers["X-XSRF-TOKEN"] = csrfToken;
     }
   }
 
@@ -96,10 +95,9 @@ apiClient.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    if (originalRequest.headers?.["X-Skip-Refresh"]) {
-      return Promise.reject(error);
-    }
-
+    /*
+     * CSRF retry
+     */
     if (
       (error.response?.status === 403 &&
         error.response?.data?.code === "CSRF_TOKEN_MISSING") ||
@@ -108,14 +106,18 @@ apiClient.interceptors.response.use(
     ) {
       originalRequest._csrfRetry = true;
 
-      const token = await fetchCsrfToken();
+      const csrfToken = await fetchCsrfToken(authClient);
 
-      if (token) {
-        originalRequest.headers["X-XSRF-TOKEN"] = token;
+      if (csrfToken) {
+        originalRequest.headers["X-XSRF-TOKEN"] = csrfToken;
 
         return apiClient(originalRequest);
       }
     }
+
+    /*
+     * Access token refresh
+     */
     const hasAccessToken = Boolean(useAuthStore.getState().accessToken);
 
     if (
@@ -145,12 +147,16 @@ apiClient.interceptors.response.use(
       );
     }
 
+    /*
+     * Normalize API error message
+     */
     const message =
       error.response?.data?.message ??
       error.response?.data?.error ??
       "Something went wrong. Please try again.";
 
     error.message = message;
+
     return Promise.reject(error);
   },
 );

@@ -124,6 +124,42 @@ export const PERMISSIONS = {
   CATEGORY_UPDATE: "category:update",
   CATEGORY_MOVE: "category:move",
   CATEGORY_DELETE: "category:delete",
+
+  // =========================
+  // BRAND
+  // =========================
+
+  BRAND_READ: "brand:read",
+  BRAND_CREATE: "brand:create",
+  BRAND_UPDATE: "brand:update",
+  BRAND_DELETE: "brand:delete",
+
+  // =========================
+  // PRODUCT
+  // =========================
+
+  PRODUCT_READ: "product:read",
+  PRODUCT_CREATE: "product:create",
+  PRODUCT_UPDATE: "product:update",
+  PRODUCT_DELETE: "product:delete",
+
+  // =========================
+  // PRODUCT VARIANT
+  // =========================
+
+  PRODUCT_VARIANT_READ: "variant:read",
+  PRODUCT_VARIANT_CREATE: "variant:create",
+  PRODUCT_VARIANT_UPDATE: "variant:update",
+  PRODUCT_VARIANT_DELETE: "variant:delete",
+
+  // =========================
+  // CATALOG PRICING
+  // =========================
+
+  CATALOG_PRICING_READ: "catalog-pricing:read",
+  CATALOG_PRICING_CREATE: "catalog-pricing:create",
+  CATALOG_PRICING_UPDATE: "catalog-pricing:update",
+  CATALOG_PRICING_DELETE: "catalog-pricing:delete",
 } as const;
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];

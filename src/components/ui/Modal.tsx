@@ -1,5 +1,4 @@
 import { type ReactNode } from "react";
-
 import { cn } from "@/lib/utils";
 
 interface ModalProps {
@@ -43,13 +42,13 @@ const Modal = ({
     >
       <div
         className={cn(
-          "w-full rounded-xl border border-border bg-background text-foreground shadow-xl",
+          "flex max-h-[90vh] w-full flex-col rounded-xl border border-border bg-background text-foreground shadow-xl",
           sizeClasses[size],
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {(title || description) && (
-          <div className="border-b border-border px-6 py-5">
+          <div className="shrink-0 border-b border-border px-6 py-5">
             {title && <h2 className="text-xl font-semibold">{title}</h2>}
 
             {description && (
@@ -60,7 +59,7 @@ const Modal = ({
           </div>
         )}
 
-        <div className="p-6">{children}</div>
+        <div className="min-h-0 flex-1 overflow-y-auto p-6">{children}</div>
       </div>
     </div>
   );

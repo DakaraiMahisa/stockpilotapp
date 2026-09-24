@@ -1,5 +1,6 @@
-import apiClient from "./apiClient";
+import authClient from "./authClient";
+import { fetchCsrfToken } from "./csrf";
 
 export const initializeCsrf = async (): Promise<void> => {
-  await apiClient.get("/api/csrf-token/public");
+  await fetchCsrfToken(authClient);
 };
