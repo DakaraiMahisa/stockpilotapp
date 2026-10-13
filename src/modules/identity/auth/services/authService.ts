@@ -63,15 +63,18 @@ export const authService = {
   },
 
   logout: async () => {
-    const response = await logout();
-    if (!response.success) {
-      throw new Error(response.message ?? "Logout failed");
-    }
-    clearTokens();
+    try {
+      const response = await logout();
 
-    await initializeCsrf();
-    console.log(document.cookie);
-    return response;
+      if (!response.success) {
+        throw new Error(response.message ?? "Logout failed");
+      }
+
+      return response;
+    } finally {
+      clearTokens();
+      await initializeCsrf();
+    }
   },
 
   acceptInvitation: async (payload: AcceptInvitationRequest) => {

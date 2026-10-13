@@ -1,24 +1,32 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "../services/authService";
 import { useAuthStore } from "@/store/authStore";
 import type { LoginRequest } from "../types/auth";
-
-const auth = useAuthStore.getState();
-
-console.log(auth);
+import { permissionsQueryKey } from "@/hooks/usePermissions";
 
 export const useLogin = () => {
   const setTokens = useAuthStore((state) => state.setTokens);
+  const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: LoginRequest) => authService.login(payload),
-
-    onSuccess: (response) => {
+    mutationFn: async (payload: LoginRequest) => {
+      const response = await authService.login(payload);
       const tokens = response.data;
 
-      if (!tokens) return;
+      if (!response.success || !tokens) {
+        throw new Error(response.message || "Login failed.");
+      }
 
+      return tokens;
+    },
+
+    onSuccess: (tokens) => {
       setTokens(tokens.accessToken, tokens.refreshToken);
+
+      // Prevent permissions from a previous session being reused.
+      queryClient.removeQueries({
+        queryKey: permissionsQueryKey,
+      });
     },
   });
 };
